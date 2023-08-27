@@ -13,8 +13,8 @@ type Units struct {
 }
 
 func SupportedUnitsNames() ([]string, []string) {
-	var names []string
-	var symbols []string
+	var names = []string{"disabled"}
+	var symbols = []string{"disabled"}
 	for _, units := range SupportedUnits() {
 		names = append(names, fmt.Sprintf("%s -> %s", units.Category, units.LongName))
 		symbols = append(symbols, units.LongName)
