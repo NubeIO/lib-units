@@ -2,25 +2,27 @@ package units
 
 import (
 	"fmt"
-	"github.com/NubeIO/lib-units/pprint"
 	"testing"
 )
 
 func TestProcess(t *testing.T) {
-	process, u, err := Process(25.1, "c", "f")
+	u, err := Process(120, "second", "min")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(process)
 	fmt.Println(u.String())
 	fmt.Println(u.AsFloat())
 }
 
 func TestSupportedUnits(t *testing.T) {
 	// uu := UnitsMap()
-	unitsMap := SupportedUnits()
+	names, symbols := SupportedUnitsNames()
 	// fmt.Println(unitsMap)
+	for i, name := range names {
+		fmt.Println(name)
+		fmt.Println(symbols[i])
+	}
 
-	pprint.PrintJSON(unitsMap)
+	//fmt.Println(symbols)
 }

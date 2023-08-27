@@ -1,5 +1,10 @@
 package units
 
+import (
+	"fmt"
+	"sort"
+)
+
 type Units struct {
 	Category string `json:"category"`
 	Name     string `json:"name"`
@@ -7,10 +12,19 @@ type Units struct {
 	Symbol   string `json:"symbol"`
 }
 
+func SupportedUnitsNames() ([]string, []string) {
+	var names []string
+	var symbols []string
+	for _, units := range SupportedUnits() {
+		names = append(names, fmt.Sprintf("%s -> %s", units.Category, units.LongName))
+		symbols = append(symbols, units.LongName)
+	}
+	return names, symbols
+}
+
 func SupportedUnits() []Units {
 	var out []Units
 	for unitType, units := range supportedUnits() {
-
 		unitsLen := len(units)
 		var category string
 		var unitName string
@@ -32,10 +46,11 @@ func SupportedUnits() []Units {
 			LongName: longName,
 			Symbol:   symbol,
 		}
-
 		out = append(out, newUnit)
-
 	}
+	sort.Slice(out, func(i, j int) bool {
+		return out[i].Category < out[j].Category
+	})
 	return out
 }
 
@@ -51,9 +66,13 @@ var supportedUnitsList = map[UnitType][]string{
 	Foot:         {"length", "foot", "feet"},
 	Yard:         {"length", "yd", "yard"},
 	Mile:         {"length", "mi", "mile"},
-	Furlong:      {"length", "furlong"},
 	Lightyear:    {"length", "ly", "lightyear"},
 	NauticalMile: {"length", "nmi", "nautical mile"},
+
+	// Power
+	Watt:     {"power", "w", "watt"},
+	Kilowatt: {"power", "kw", "kilowatt"},
+	Megawatt: {"power", "mw", "megawatt"},
 
 	// Mass
 	Gram:     {"mass", "g", "gram"},
@@ -74,7 +93,7 @@ var supportedUnitsList = map[UnitType][]string{
 	Liter:      {"volume", "l", "liter"},
 	Centiliter: {"volume", "cl", "centiliter"},
 	Milliliter: {"volume", "ml", "milliliter"},
-	Gallon:     {"volume", "gal", "gals", "gallon"},
+	Gallon:     {"volume", "gal", "gallon"},
 	Quart:      {"volume", "qt", "quart"},
 	Pint:       {"volume", "pt", "pint"},
 	Cup:        {"volume", "cup", "cups"},
@@ -83,9 +102,9 @@ var supportedUnitsList = map[UnitType][]string{
 	Teaspoon:   {"volume", "tsp", "teaspoon"},
 
 	// Duration
-	Second: {"duration", "s", "sec", "secs", "second"},
-	Minute: {"duration", "min", "mins", "minute"},
-	Hour:   {"duration", "hr", "hrs", "hour"},
+	Second: {"duration", "s", "second"},
+	Minute: {"duration", "min", "minute"},
+	Hour:   {"duration", "hr", "hour"},
 	Day:    {"duration", "day", "days"},
 	Week:   {"duration", "wk", "week"},
 	Month:  {"duration", "month", "months"},

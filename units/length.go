@@ -2,9 +2,8 @@ package units
 
 import (
 	"fmt"
-	"math"
-
 	"github.com/martinlindhe/unit"
+	"math"
 )
 
 // LengthUnit is a unit of length
