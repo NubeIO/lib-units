@@ -18,6 +18,16 @@ func GetBACnetUnitByValue(unit int) *BacnetUnit {
 	return nil
 }
 
+func BACnetUnitsNames() ([]string, []int) {
+	var out []string
+	var outValue []int
+	for _, unit := range BACnetUnits() {
+		out = append(out, unit.unitName)
+		outValue = append(outValue, unit.unitValue)
+	}
+	return out, outValue
+}
+
 func BACnetUnits() []BacnetUnit {
 	var out []BacnetUnit
 	val := reflect.ValueOf(&unitsList).Elem()
