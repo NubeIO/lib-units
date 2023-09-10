@@ -6,7 +6,7 @@ import (
 )
 
 func TestProcess(t *testing.T) {
-	u, err := Process(120, "second", "min")
+	u, err := Process(120, "c", "f")
 	if err != nil {
 		fmt.Println(err)
 		return
