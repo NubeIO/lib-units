@@ -6,13 +6,13 @@ import (
 )
 
 type BacnetUnit struct {
-	unitName  string
-	unitValue int
+	UnitName  string `json:"unit_name"`
+	UnitValue int    `json:"unit_value"`
 }
 
 func GetBACnetUnitByValue(unit int) *BacnetUnit {
 	for _, b := range BACnetUnits() {
-		if unit == b.unitValue {
+		if unit == b.UnitValue {
 			return &b
 		}
 	}
@@ -23,8 +23,8 @@ func BACnetUnitsNames() ([]string, []string) {
 	var out []string
 	var outValue []string
 	for _, unit := range BACnetUnits() {
-		out = append(out, unit.unitName)
-		outValue = append(outValue, fmt.Sprint(unit.unitValue))
+		out = append(out, unit.UnitName)
+		outValue = append(outValue, fmt.Sprint(unit.UnitValue))
 	}
 	return out, outValue
 }
@@ -34,8 +34,8 @@ func BACnetUnits() []BacnetUnit {
 	val := reflect.ValueOf(&unitsList).Elem()
 	for i := 0; i < val.NumField(); i++ {
 		newUint := BacnetUnit{
-			unitName:  val.Type().Field(i).Name,
-			unitValue: int(val.Field(i).Int()),
+			UnitName:  val.Type().Field(i).Name,
+			UnitValue: int(val.Field(i).Int()),
 		}
 		out = append(out, newUint)
 	}

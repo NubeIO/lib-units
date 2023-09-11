@@ -7,6 +7,7 @@ import (
 
 func TestGetBACnetUnitByValue(t *testing.T) {
 	fmt.Println(unitsList.percent)
-	fmt.Println(GetBACnetUnitByValue(unitsList.percent))
+	GetBACnetUnitByValue(unitsList.percent)
+
 	fmt.Println(BACnetUnitsNames())
 }
