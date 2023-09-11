@@ -1,6 +1,7 @@
 package units
 
 import (
+	"fmt"
 	"reflect"
 )
 
@@ -18,12 +19,12 @@ func GetBACnetUnitByValue(unit int) *BacnetUnit {
 	return nil
 }
 
-func BACnetUnitsNames() ([]string, []int) {
+func BACnetUnitsNames() ([]string, []string) {
 	var out []string
-	var outValue []int
+	var outValue []string
 	for _, unit := range BACnetUnits() {
 		out = append(out, unit.unitName)
-		outValue = append(outValue, unit.unitValue)
+		outValue = append(outValue, fmt.Sprint(unit.unitValue))
 	}
 	return out, outValue
 }
